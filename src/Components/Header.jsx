@@ -6,7 +6,6 @@ import { LuSearch } from "react-icons/lu";
 import { fetchMoviesByGenre, fetchMoviesByType, setGenre } from "../store/movieSlice";
 import { FaChevronDown } from "react-icons/fa";
 import { FaBars } from "react-icons/fa";
-
 import Search from "./Search";
 
 const DropdownMenu = ({ label, items, onItemClick, isOpen, onToggle }) => {
@@ -16,7 +15,7 @@ const DropdownMenu = ({ label, items, onItemClick, isOpen, onToggle }) => {
   };
 
   return (
-    <div className="relative sm:ml-36">
+    <div className=" lg:relative    ">
       <div className="flex justify-center items-center">
         <button
           onClick={() => onToggle(!isOpen)}
@@ -28,7 +27,7 @@ const DropdownMenu = ({ label, items, onItemClick, isOpen, onToggle }) => {
       {isOpen && (
         <div
           className="absolute sm:mt-2 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 z-10"
-          style={{ top: '100%', right: '0', left: 'auto' }}
+          style={{ top: '4%', right: 'auto', left: '40%' }}
           onMouseLeave={() => onToggle(false)}
         >
           <div
@@ -64,9 +63,9 @@ const DropdownMenu = ({ label, items, onItemClick, isOpen, onToggle }) => {
 const NavLinks = ({ onGenreClick, onTypeClick }) => {
   const genres = [
     { label: "Adult", genre: "adult" },
+    { label: "Bollywood", genre: "bollywood" },
     { label: "K-Drama", genre: "kdrama" },
-    { label: "Anime", genre: "anime" },
-    { label: "Animated", genre: "animated" },
+    { label: "Animated", genre: "Animation" },
     { label: "Netflix", genre: "netflix" },
   ];
 
@@ -89,10 +88,14 @@ const NavLinks = ({ onGenreClick, onTypeClick }) => {
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState(false); // State to manage active dropdown
+  const [activeDropdown, setActiveDropdown] = useState(null); // State to manage active dropdown
   const dispatch = useDispatch();
   const navigate = useNavigate(); // Use useNavigate
 
+
+
+
+  
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -104,10 +107,16 @@ const Header = () => {
   const closeSearch = () => {
     setIsSearchOpen(false);
   };
-
+  
   const handleGenreClick = (genre) => {
     dispatch(setGenre(genre));
-    dispatch(fetchMoviesByGenre(genre));
+    if (genre === "bollywood") {
+      dispatch(fetchMoviesByType("bollywood"));
+    }  if (genre === "netflix") {
+      dispatch(fetchMoviesByType("netflix"));
+    } else {
+      dispatch(fetchMoviesByGenre(genre));
+    }
     setIsOpen(false);
     navigate("/"); // Navigate to the main page
   };
@@ -134,7 +143,7 @@ const Header = () => {
   }, []);
 
   return (
-    <nav className="bg-gray-900 text-gray-100 pt-4">
+    <nav className="bg-[#121212] text-gray-100 p-2">
       <div className=" mx-auto px-2 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -147,9 +156,9 @@ const Header = () => {
             </button>
           </div>
           <div className=" lg:ml-20  flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex-shrink-0 text-lg font-bold">
+            <div className="flex-shrink-0  text-lg font-bold">
               <a className="text-3xl" href="/">
-                OceanOfMovies
+             <img className="h-[250px]" src="https://res.cloudinary.com/doi13tpyz/image/upload/v1717696562/logo-color-removebg-preview_dvvu3j.png" alt="" />
               </a>
             </div>
           </div>
@@ -181,13 +190,13 @@ const Header = () => {
                 onToggle={(isOpen) => handleDropdownToggle(isOpen ? "hollywood" : null)}
                 onItemClick={handleGenreClick}
               />
-              <DropdownMenu
+              {/* <DropdownMenu
                 label="TV Shows"
                 items={["Show 1", "Show 2", "Show 3"]}
                 isOpen={activeDropdown === "tvshows"}
                 onToggle={(isOpen) => handleDropdownToggle(isOpen ? "tvshows" : null)}
                 onItemClick={handleGenreClick}
-              />
+              /> */}
               <div className="relative search-container hidden sm:block">
                 <Search />
               </div>
@@ -221,7 +230,7 @@ const Header = () => {
               />
             </svg>
           </button>
-          <NavLinks onGenreClick={handleGenreClick}  onTypeClick={handleTypeClick} />
+          <NavLinks onGenreClick={handleGenreClick} onTypeClick={handleTypeClick} />
           <DropdownMenu
             label="Hollywood"
             items={[
