@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { JoinTelegram, Telegram } from "../constant";
 import { fetchMovieById } from "../store/movieSlice";
 import { Helmet } from "react-helmet-async";
-import CarAnimation from "./CarAnimation ";
+ 
+import Loading from "./Loading";
 
 const MovieDetail = () => {
   const { id } = useParams();
@@ -22,7 +23,7 @@ const MovieDetail = () => {
   if (movieStatus === "loading") {
     return (
       <div className="min-h-screen   bg-black flex  justify-center text-white">
-      <CarAnimation />
+     <Loading />
       </div>
     );
   }
