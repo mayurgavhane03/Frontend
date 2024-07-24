@@ -1,4 +1,3 @@
 export const sortMoviesByDate = (movies) => {
-    return movies.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  };
-  
+  return movies.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+};
