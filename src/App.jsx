@@ -17,7 +17,6 @@ import ScrollToTop from "./Components/hook/useScrollToTop";
 const AppLayout = () => {
   return (
     <div>
-      <ScrollToTop   /> 
       <NavBar/>
       <Logo />
       <Header />
