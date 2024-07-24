@@ -24,4 +24,8 @@
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
   }
-  
+  /* styles.css */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
