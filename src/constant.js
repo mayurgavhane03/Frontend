@@ -9,3 +9,4 @@ export const backendApi = 'https://bk1.oceanofmovies.tech/api/movies/'
 export const secretKey = 'MNMN0808';
 "http://ec2-54-173-206-55.compute-1.amazonaws.com:5000/api/movies"
 // http://backend1.oceanofmovies.tech/api/movies
+export const message = `Before downloading any movie, please install the Telegram application on your mobile or desktop. You can also request any movie in our Telegram group.`;

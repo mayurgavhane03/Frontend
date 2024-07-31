@@ -11,7 +11,9 @@ import VideoPlayer from "./Components/VideoPlayer";
 import DMCAPolicy from "./Components/Navbar Compnents/DMCAPolicy ";
 import DisclaimerPolicy from "./Components/Navbar Compnents/DisclaimerPolicy";
 import ContactForm from "./Components/Navbar Compnents/ContactForm";
-import ScrollToTop from "./Components/hook/useScrollToTop";
+import GenreMovies from "./Components/GenreMovies";
+import Banner from "./Components/Banner";
+import { message } from "./constant";
  
 
 const AppLayout = () => {
@@ -19,6 +21,7 @@ const AppLayout = () => {
     <div>
       <NavBar/>
       <Logo />
+      <Banner message={message} />
       <Header />
       <Outlet />
       <Footer />
@@ -38,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "movie/:id",
         element: <MovieDetail />,
+      },
+      {
+        path: "categories/:genre",
+        element: <GenreMovies />,
       },
       {
         path: "how-to-download",

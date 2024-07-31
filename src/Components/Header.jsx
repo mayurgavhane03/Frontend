@@ -60,7 +60,7 @@ const DropdownMenu = ({ label, items, onItemClick, isOpen, onToggle }) => {
 
 const NavLinks = ({ onGenreClick }) => {
   const genres = [
-    // { label: "Adult", genre: "adult" },
+    { label: "18+", genre: "18" },
     { label: "Dual Audio", genre: "Dualaudio" },
     { label: "Bollywood", genre: "bollywood" },
     { label: "K-Drama", genre: "kdrama" },
@@ -74,7 +74,7 @@ const NavLinks = ({ onGenreClick }) => {
         <button
           key={link.label}
           onClick={() => onGenreClick(link.genre)}
-          className="text-gray-300 hover:bg-[#282828] hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+          className="text-gray-300 hover:bg-[#282828] hover:text-white px-3 py-2 rounded-md text-lg font-semibold  "
         >
           {link.label}
         </button>
@@ -104,13 +104,13 @@ const Header = () => {
 
   const handleGenreClick = (genre) => {
     dispatch(setGenre(genre));
-    if (genre === "bollywood" || genre === "netflix") {
+    if (genre === "bollywood" || genre === "netflix" || genre === "18") {
       dispatch(fetchMoviesByType(genre));
     } else {
       dispatch(fetchMoviesByGenre(genre));
     }
     setIsOpen(false);
-    navigate("/");
+    navigate(`/categories/${genre}`);
   };
 
   const handleDropdownToggle = (dropdown) => {
@@ -131,13 +131,13 @@ const Header = () => {
   }, []);
 
   return (
-    <nav className="bg-[#121212] text-gray-100 mb-[1px] mt-[1px] p-2">
+    <nav className="bg-background text-gray-100 mb-[1px] mt-[1px] p-2">
       <div className="mx-auto lg:flex justify-center items-center px-2 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 mt-6 flex items-center lg:hidden">
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2  mr-4 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              className="inline-flex -mt-4 items-center justify-center p-2  mr-4 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
             >
               <span className="sr-only">Toggle menu</span>
               <FaBars />
@@ -192,39 +192,38 @@ const Header = () => {
         </div>
       </div>
       <div
-        className={`lg:hidden min-h-screen fixed top-0 left-0 w-64  bg-[#121212] shadow-lg z-50 transform ${
+        className={`lg:hidden min-h-screen fixed top-0 left-0 w-64  bg-] shadow-lg z-50 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out`}
       >
         <div className="relative px-2 pt-2 pb-3 space-y-1 flex flex-col items-start">
-  <button
-    onClick={toggleMenu}
-    className="absolute top-0 right-0 text-gray-400 hover:text-white focus:outline-none"
-    style={{ margin: '0.5rem' }}  // Add margin for better spacing
-  >
-    <FaTimes />
-  </button>
-  <NavLinks onGenreClick={handleGenreClick} />
-  <DropdownMenu
-    label="Hollywood"
-    items={[
-      "Action",
-      "Adventure",
-      "Drama",
-      "Comedy",
-      "Fantasy",
-      "History",
-      "Horror",
-      "Thriller",
-      "Mystery",
-      "Romance",
-    ]}
-    isOpen={activeDropdown === "hollywood"}
-    onToggle={(isOpen) => handleDropdownToggle(isOpen ? "hollywood" : null)}
-    onItemClick={handleGenreClick}
-  />
-</div>
-
+          <button
+            onClick={toggleMenu}
+            className="absolute top-0 right-0 text-gray-400 hover:text-white focus:outline-none"
+            style={{ margin: '0.5rem' }}
+          >
+            <FaTimes />
+          </button>
+          <NavLinks onGenreClick={handleGenreClick} />
+          <DropdownMenu
+            label="Hollywood"
+            items={[
+              "Action",
+              "Adventure",
+              "Drama",
+              "Comedy",
+              "Fantasy",
+              "History",
+              "Horror",
+              "Thriller",
+              "Mystery",
+              "Romance",
+            ]}
+            isOpen={activeDropdown === "hollywood"}
+            onToggle={(isOpen) => handleDropdownToggle(isOpen ? "hollywood" : null)}
+            onItemClick={handleGenreClick}
+          />
+        </div>
       </div>
       {isSearchOpen && (
         <div className="flex justify-center items-center top-16 w-full z-50">
