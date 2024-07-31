@@ -11,7 +11,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="bg-[#121212] p-4 mb-[1px] overflow-hidden">
+    <nav className="bg-[#121212] p-4 mb-[1px]  hidden  lg:block  overflow-hidden">
       <div className="lg:hidden">
         <button
           onClick={toggleMenu}

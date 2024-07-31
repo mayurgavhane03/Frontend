@@ -22,7 +22,7 @@ const MovieDetail = () => {
 
   if (movieStatus === "loading") {
     return (
-      <div className="min-h-screen   bg-black flex  justify-center text-white">
+      <div className="min-h-screen   bg-background flex  justify-center text-white">
      <Loading />
       </div>
     );
@@ -30,7 +30,7 @@ const MovieDetail = () => {
 
   if (movieStatus === "failed") {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center text-white">
+      <div className="min-h-screen bg-background flex items-center justify-center text-white">
         {error}
       </div>
     );
@@ -49,7 +49,7 @@ const MovieDetail = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black p-6">
+    <div className="min-h-screen flex items-center justify-center bg-background  p-6">
       <Helmet>
         <title>{movie.title} - OceanOfMovies</title>
         <meta

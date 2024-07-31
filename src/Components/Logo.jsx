@@ -2,7 +2,7 @@ import React from "react";
 
 const Logo = () => {
   return (
-    <div className="flex-shrink-0 hidden pt-12 pb-12  pl-24    lg:block bg-black text-lg font-bold">
+    <div className="flex-shrink-0 hidden pt-12 pb-12  pl-24    lg:block bg-background text-lg font-bold">
       <a className="text-3xl" href="/">
         <img
           className="h-[75px]"
