@@ -17,15 +17,15 @@ const DropdownMenu = ({ label, items, onItemClick, isOpen, onToggle }) => {
       <div className="flex justify-center items-center">
         <button
           onClick={() => onToggle(!isOpen)}
-          className="peer text-gray-300 hover:bg-[#282828] hover:text-white px-3 py-3 rounded-md text-sm font-medium flex items-center"
+          className="peer text-gray-300  hover:bg-[#282828] hover:text-white px-3 py-3 rounded-md text-sm flex items-center"
         >
-          {label} <FaChevronDown className={`ml-2 transform ${isOpen ? 'rotate-180' : 'rotate-0'}`} />
+          <h1 className="  font-semibold text-[18px] ">{label}</h1> <FaChevronDown className={`ml-2 transform  ${isOpen ? 'rotate-180' : 'rotate-0'}`} />
         </button>
       </div>
       {isOpen && (
         <div
           className="absolute sm:mt-2 w-48 rounded-md shadow-lg bg-[#282828] ring-1 ring-black ring-opacity-5 z-10 transition-transform duration-300 ease-in-out"
-          style={{ top: '4%', right: 'auto', left: '40%' }}
+          style={{ top: '80%', right: 'auto', left: '10%' }}
           onMouseLeave={() => onToggle(false)}
         >
           <div
@@ -38,7 +38,7 @@ const DropdownMenu = ({ label, items, onItemClick, isOpen, onToggle }) => {
               <button
                 key={item}
                 onClick={() => handleItemClick(item)}
-                className="block px-4 py-2 text-md text-gray-500 hover:bg-[#282828] hover:text-white"
+                className="block px-4 py-2 font-bold  text-md text-gray-500 hover:bg-[#282828] hover:text-white"
                 role="menuitem"
               >
                 {item}
@@ -74,7 +74,7 @@ const NavLinks = ({ onGenreClick }) => {
         <button
           key={link.label}
           onClick={() => onGenreClick(link.genre)}
-          className="text-gray-300 hover:bg-[#282828] hover:text-white px-3 py-2 rounded-md text-lg font-semibold  "
+          className="text-gray-300 hover:bg-[#282828]   hover:text-white px-3 py-2 rounded-md text-lg font-semibold  "
         >
           {link.label}
         </button>
@@ -104,14 +104,16 @@ const Header = () => {
 
   const handleGenreClick = (genre) => {
     dispatch(setGenre(genre));
-    if (genre === "bollywood" || genre === "netflix" || genre === "18") {
+    if (genre === "bollywood" || genre === "netflix" || genre === "18" || genre === "kdrama") {
       dispatch(fetchMoviesByType(genre));
+      navigate(`/categories/movietype/${genre}`);
     } else {
       dispatch(fetchMoviesByGenre(genre));
+      navigate(`/categories/${genre}`);
     }
     setIsOpen(false);
-    navigate(`/categories/${genre}`);
-  };
+  
+  }  
 
   const handleDropdownToggle = (dropdown) => {
     setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
@@ -162,9 +164,8 @@ const Header = () => {
               <LuSearch />
             </button>
           </div>
-
           <div className="hidden lg:flex lg:items-center lg:ml-6">
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 font-semibold ">
               <NavLinks onGenreClick={handleGenreClick} />
               <DropdownMenu
                 label="Hollywood"
@@ -192,14 +193,15 @@ const Header = () => {
         </div>
       </div>
       <div
-        className={`lg:hidden min-h-screen fixed top-0 left-0 w-64  bg-] shadow-lg z-50 transform ${
+        className={`lg:hidden min-h-screen fixed top-0 left-0 w-64  bg-background shadow-lg z-50 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out`}
       >
-        <div className="relative px-2 pt-2 pb-3 space-y-1 flex flex-col items-start">
+        <div className="relative font-semibold  px-2 pt-2 pb-3 space-y-1 flex flex-col items-start"
+          >
           <button
             onClick={toggleMenu}
-            className="absolute top-0 right-0 text-gray-400 hover:text-white focus:outline-none"
+            className="absolute top-0 font-semibold right-0 text-gray-400 hover:text-white focus:outline-none"
             style={{ margin: '0.5rem' }}
           >
             <FaTimes />

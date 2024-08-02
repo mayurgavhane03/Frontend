@@ -13,7 +13,7 @@ const MovieDetail = () => {
   const movie = useSelector((state) => state.movies.movieDetails);
   const movieStatus = useSelector((state) => state.movies.movieDetailsStatus);
   const error = useSelector((state) => state.movies.movieDetailsError);
-
+console.log(movie)
   useEffect(() => {
     if (movieStatus === "idle" || (movie && movie._id !== id)) {
       dispatch(fetchMovieById(id));

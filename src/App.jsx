@@ -14,6 +14,7 @@ import ContactForm from "./Components/Navbar Compnents/ContactForm";
 import GenreMovies from "./Components/GenreMovies";
 import Banner from "./Components/Banner";
 import { message } from "./constant";
+import TypeMovies from "./Components/TypeMovies";
  
 
 const AppLayout = () => {
@@ -45,6 +46,11 @@ const router = createBrowserRouter([
       {
         path: "categories/:genre",
         element: <GenreMovies />,
+      },
+      {
+        path:"categories/movietype/:type",
+        element:<TypeMovies  />
+
       },
       {
         path: "how-to-download",
