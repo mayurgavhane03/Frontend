@@ -1,3 +1,4 @@
+// MainPage.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -5,7 +6,7 @@ import { fetchMovies, fetchMoviesByGenre } from "../store/movieSlice";
 import { Helmet } from "react-helmet";
 import { telegramRequestGroup } from "../constant";
 import Pagination from "./Pagination";
-
+import Shimmer from "./Shimmer"; // Import the Shimmer component
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -38,26 +39,8 @@ const MainPage = () => {
 
   let content;
 
-  const shimmerCards = Array.from({ length: moviesPerPage }).map((_, index) => (
-    <div
-      key={index}
-      className="shimmer-wrapper flex lg:w-56 lg:p-4 rounded-lg lg:items-center lg:justify-center lg:flex-col"
-    >
-      <div className="shimmer w-[120px] lg:w-[200px] lg:h-[300px] h-[200px] rounded-lg mb-4"></div>
-      <div className="flex flex-col">
-        <div className="shimmer w-[200px] ml-4 lg:w-[150px] h-5 rounded"></div>
-        <div className="shimmer w-[200px] mt-3 ml-4 lg:w-[150px] h-5 rounded"></div>
-        <div className="shimmer w-[80px] mt-3 ml-4 lg:w-[150px] h-5 rounded"></div>
-      </div>
-    </div>
-  ));
-
   if (movieStatus === "loading") {
-    content = (
-      <div className="flex flex-wrap lg:justify-center h-[100%] gap-6">
-        {shimmerCards}
-      </div>
-    );
+    content = <Shimmer cardsCount={moviesPerPage} />; // Use the Shimmer component
   } else if (searchResults.length === 0 && movies.length === 0) {
     content = (
       <div className="h-[100vh] flex-col items-center justify-center">
@@ -123,3 +106,4 @@ const MainPage = () => {
 };
 
 export default MainPage;
+  

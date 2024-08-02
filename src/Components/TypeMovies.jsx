@@ -1,42 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { fetchMoviesByGenre } from "../store/movieSlice";
+import { fetchMoviesByType } from "../store/movieSlice";
 import { Helmet } from "react-helmet";
 import { telegramRequestGroup } from "../constant";
 import Pagination from "./Pagination";
-import Shimmer from "./Shimmer"; // Import the Shimmer component
+import Shimmer from "./Shimmer";
 
-const GenreMovies = () => {
-  const { genre } = useParams();
+const TypeMovies = () => {
+  const { type } = useParams();
   const dispatch = useDispatch();
-  const genreMovies = useSelector((state) => state.movies.genreMovies); // Use genreMovies from state
-  const movieStatus = useSelector((state) => state.movies.genreStatus); // Use genreStatus from state
-  const error = useSelector((state) => state.movies.genreError); // Use genreError from state
-  
-  // Pagination state
+  const typeMovies = useSelector((state) => state.movies.typeMovies);
+  const typeStatus = useSelector((state) => state.movies.status);
+  const error = useSelector((state) => state.movies.error);
+
   const [currentPage, setCurrentPage] = useState(1);
   const moviesPerPage = 10;
 
   useEffect(() => {
-    dispatch(fetchMoviesByGenre(genre));
-  }, [dispatch, genre]);
+    dispatch(fetchMoviesByType(type));
+  }, [dispatch, type]);
 
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
-  const currentMovies = genreMovies.slice(indexOfFirstMovie, indexOfLastMovie);
+  const currentMovies = typeMovies.slice(indexOfFirstMovie, indexOfLastMovie);
 
   let content;
 
-  // Determine what to display based on the movie status and data
-  if (movieStatus === 'loading') {
+  if (typeStatus === 'loading') {
     content = <Shimmer cardsCount={moviesPerPage} />;
-  } else if (movieStatus === 'failed') {
+  } else if (typeStatus === 'failed') {
     content = <p className="text-white">{error}</p>;
-  } else if (genreMovies.length === 0) {
+  } else if (typeMovies.length === 0) {
     content = (
       <div className="h-[100vh] flex-col items-center justify-center">
-        <p className="text-white">No movies available in this genre 😔</p>
+        <p className="text-white">No movies available for this type 😔</p>
         <p className="text-white mt-5">
           📌 If movies are not available, request them in our Telegram Group{" "}
           <a className="text-blue-500 font-bold" href={telegramRequestGroup} target="_blank" rel="noopener noreferrer">
@@ -62,15 +60,30 @@ const GenreMovies = () => {
     ));
   }
 
+  const getTitle = (type) => {
+    switch (type) {
+      case '18':
+        return "18+";
+      case 'kdrama':
+        return "K Drama";
+      case 'netflix':
+        return "NetFlix";
+      default:
+        return "";
+    }
+  };
+
+  const title = getTitle(type);
+
   return (
     <div className="p-8 lg:py-20 w-full min-h-screen bg-background">
       <Helmet>
-        <title>{genre} Movies - Ocean Of Movies</title>
-        <meta name="description" content={`Watch and download ${genre} movies`} />
+        <title>{title} Movies - Ocean Of Movies</title>
+        <meta name="description" content={`Watch and download ${title} movies`} />
       </Helmet>
 
       <h1 className="text-2xl flex lg:ml-[138px] sm:text-3xl md:text-4xl tracking-tighter text-white font-bold mb-6">
-        {genre} Movies
+        {title} Movies
       </h1>
 
       <div className="flex flex-wrap lg:justify-center h-[100%] gap-6">
@@ -79,7 +92,7 @@ const GenreMovies = () => {
 
       <Pagination
         currentPage={currentPage}
-        totalItems={genreMovies.length} // Update to use genreMovies.length
+        totalItems={typeMovies.length}
         itemsPerPage={moviesPerPage}
         onPageChange={setCurrentPage}
       />
@@ -87,4 +100,4 @@ const GenreMovies = () => {
   );
 };
 
-export default GenreMovies;
+export default TypeMovies;

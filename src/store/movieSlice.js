@@ -56,6 +56,8 @@ const moviesSlice = createSlice({
   initialState: {
     items: [],
     originalMovies: [],
+    genreMovies: [], // New array for movies by genre
+    typeMovies: [], // New array for movies by type
     status: 'idle',
     error: null,
     movieDetails: null,
@@ -79,6 +81,8 @@ const moviesSlice = createSlice({
     resetMovies: (state) => {
       state.items = [];
       state.originalMovies = [];
+      state.genreMovies = []; // Reset the genreMovies array
+      state.typeMovies = []; // Reset the typeMovies array
       state.status = 'idle';
       state.error = null;
       state.movieDetails = null;
@@ -122,6 +126,7 @@ const moviesSlice = createSlice({
       })
       .addCase(fetchMoviesByGenre.fulfilled, (state, action) => {
         state.genreStatus = 'succeeded';
+        state.genreMovies = action.payload; // Update the new array
         state.items = action.payload;
       })
       .addCase(fetchMoviesByGenre.rejected, (state, action) => {
@@ -145,6 +150,7 @@ const moviesSlice = createSlice({
       })
       .addCase(fetchMoviesByType.fulfilled, (state, action) => {
         state.status = 'succeeded';
+        state.typeMovies = action.payload; // Update the new array
         state.items = action.payload;
       })
       .addCase(fetchMoviesByType.rejected, (state, action) => {
