@@ -13,7 +13,7 @@
   - I also implemented dynamic search for searching movies. If the user is on the movie detail page and wants to search for a movie, they just need to click on the search bar. Whenever they type a movie, it brings all movies to the main page.
   - The most important part of the website is securing all the data.
   - For that, I use Crypto.js which encrypts data. Whenever we try to fetch data, it first comes in a string form, and we have to decrypt that data first.
-
+    - data
 - Created the navbar and footer.
 - Disabled the right-click on the whole application.
 - For encryption and decryption, I use Crypto.js.
